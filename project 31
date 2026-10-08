@@ -1,0 +1,13 @@
+import pyjokes
+joke=pyjokes.get_joke()
+print("joke of the moement:")
+print(joke)
+print()
+print("here are a few more:")
+count=1
+while count<=5:
+    print(str(count)+"-"+pyjoke.get_joke())
+    count=count+1
+print()
+print("bonus chuck norris jokes:")
+print(pyjokes.get_joke(category="chuck"))
