@@ -1,0 +1,34 @@
+import subprocess
+import re
+import locale
+
+system_encoding = locale.getpreferredencoding(False)
+
+try:
+    output = subprocess.check_output(
+        ["netsh", "wlan", "show", "profiles"],
+        text=True,
+        encoding=system_encoding,
+        errors="ignore"
+    )
+
+    profiles = re.findall(
+        r"All User Profile\s*:\s*(.*)",
+        output
+    )
+
+    if profiles:
+        print("Saved Wi-Fi profiles:")
+        for profile in profiles:
+            print(profile.strip())
+    else:
+        print("No Wi-Fi profiles found.")
+
+except subprocess.CalledProcessError as e:
+    print("Command failed:", e)
+
+except FileNotFoundError:
+    print("The netsh command was not found. Run this on Windows.")
+
+except Exception as e:
+    print("Error:", e)
