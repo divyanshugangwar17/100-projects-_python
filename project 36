@@ -1,0 +1,67 @@
+import random
+import sys
+
+def generate_math_question():
+    """Generate a fresh arithmetic question each time."""
+
+    op = random.choice(["+", "-", "*"])
+
+    a = random.randint(1, 100)
+    b = random.randint(1, 100)
+
+    if op == "+":
+        correct = a + b
+
+    elif op == "-":
+        correct = a - b
+
+    else:
+        correct = a * b
+
+    return f"{a} {op} {b}", correct
+
+
+def fun_quiz():
+    print("===== MATH QUIZ =====")
+    print("Type 'q' to quit.\n")
+
+    score = 0
+    total = 0
+
+    while True:
+        question, answer = generate_math_question()
+
+        print("Question:", question, "= ?")
+        user_input = input("Your answer: ").strip()
+
+        if user_input.lower() == "q":
+            break
+
+        try:
+            user_answer = int(user_input)
+        except ValueError:
+            print("Please enter a valid number!\n")
+            continue
+
+        total += 1
+
+        if user_answer == answer:
+            print("Correct! 🎉")
+            score += 1
+        else:
+            print(f"Wrong! The correct answer is {answer}")
+
+        print(f"Score: {score}/{total}\n")
+
+    print("\n===== QUIZ RESULTS =====")
+    print(f"Questions attempted: {total}")
+    print(f"Correct answers: {score}")
+
+    if total > 0:
+        print(f"Accuracy: {score / total * 100:.2f}%")
+
+    print("Thanks for playing!")
+
+
+if __name__ == "__main__":
+    fun_quiz()
